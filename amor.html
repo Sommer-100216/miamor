@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Ti Amore Mio 💖</title>
+
+<style>
+body{
+  margin:0;
+  background: linear-gradient(#f8c8d8, #fdecef);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family: 'Courier New', monospace;
+}
+
+.card{
+  position:relative;
+  width:360px;
+  height:640px;
+  background:#fdecef;
+  border-radius:25px;
+  box-shadow:0 0 30px rgba(255,150,180,.5);
+  overflow:hidden;
+  padding:20px;
+  text-align:center;
+}
+
+/* TEXTO */
+h1{
+  font-size:26px;
+  margin-top:10px;
+}
+.sub{
+  margin-top:15px;
+  font-size:16px;
+}
+.counter{
+  margin-top:10px;
+  color:#c03a6b;
+  font-size:18px;
+}
+
+/* IMAGEN */
+.scene{
+  position:relative;
+  margin:25px auto;
+  width:260px;
+}
+.scene img{
+  width:100%;
+}
+
+/* COLUMPIO */
+.swing{
+  position:absolute;
+  left:50%;
+  top:45%;
+  transform-origin: top center;
+  animation:swing 6s ease-in-out infinite;
+}
+@keyframes swing{
+  0%{transform:rotate(-2deg);}
+  50%{transform:rotate(2deg);}
+  100%{transform:rotate(-2deg);}
+}
+
+/* FLORES */
+.flower{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:#f6a7c1;
+  animation:float 8s linear infinite;
+  opacity:.6;
+}
+@keyframes float{
+  from{transform:translateY(0);}
+  to{transform:translateY(-60px);}
+}
+
+/* FAROLES */
+.glow{
+  position:absolute;
+  width:15px;
+  height:15px;
+  border-radius:50%;
+  background:rgba(255,190,120,.8);
+  box-shadow:0 0 10px rgba(255,190,120,.9);
+  animation:glow 4s ease-in-out infinite;
+}
+@keyframes glow{
+  0%,100%{opacity:.4;}
+  50%{opacity:1;}
+}
+
+/* CHISPITAS */
+.spark{
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:orange;
+  animation:spark 2s infinite;
+}
+@keyframes spark{
+  from{opacity:1; transform:translateY(0);}
+  to{opacity:0; transform:translateY(-20px);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <h1>Para Ty Amore mio 🖤💖</h1>
+
+  <div class="scene">
+    <img src="arbol_cerezo.png" alt="Arbol de cerezo">
+
+    <!-- columpio -->
+    <div class="swing"></div>
+
+    <!-- faroles -->
+    <div class="glow" style="top:40%;left:20%;"></div>
+    <div class="glow" style="top:38%;right:20%;"></div>
+
+    <!-- flores -->
+    <div class="flower" style="left:30%;top:80%;"></div>
+    <div class="flower" style="left:60%;top:85%;"></div>
+
+    <!-- chispitas -->
+    <div class="spark" style="left:25%;top:75%;"></div>
+    <div class="spark" style="right:25%;top:75%;"></div>
+  </div>
+
+  <div class="sub">Mi amor por ti comenzó hace…</div>
+  <div class="counter" id="contador"></div>
+
+</div>
+
+<script>
+const inicio = new Date("2025-11-10T01:30:00-05:00");
+
+function actualizar(){
+  const ahora = new Date();
+  let diff = ahora - inicio;
+
+  const s = Math.floor(diff/1000)%60;
+  const m = Math.floor(diff/60000)%60;
+  const h = Math.floor(diff/3600000)%24;
+  const d = Math.floor(diff/86400000);
+
+  document.getElementById("contador").innerHTML =
+    `${d} días ${h} horas ${m} minutos ${s} segundos`;
+}
+setInterval(actualizar,1000);
+actualizar();
+</script>
+
+</body>
+</html>
