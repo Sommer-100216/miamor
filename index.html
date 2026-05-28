@@ -17,6 +17,8 @@ body{
   min-height:100vh;
 
   font-family:'Courier New', monospace;
+
+  overflow:hidden;
 }
 
 /* CARD */
@@ -38,6 +40,8 @@ body{
   padding:20px;
 
   text-align:center;
+
+  z-index:2;
 }
 
 /* TITULO */
@@ -47,7 +51,7 @@ h1{
   margin-top:10px;
 }
 
-/* SUBTEXTO */
+/* SUB */
 
 .sub{
   margin-top:20px;
@@ -63,9 +67,9 @@ h1{
 
   font-size:20px;
 
-  font-variant-numeric:tabular-nums;
-
   font-weight:bold;
+
+  font-variant-numeric:tabular-nums;
 
   letter-spacing:1px;
 }
@@ -141,32 +145,6 @@ h1{
   }
 }
 
-/* CHISPITAS */
-
-.spark{
-  position:absolute;
-
-  width:6px;
-  height:6px;
-
-  border-radius:50%;
-
-  animation:spark 2s linear forwards;
-}
-
-@keyframes spark{
-
-  from{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
-
-  to{
-    opacity:0;
-    transform:translateY(-60px) scale(0);
-  }
-}
-
 /* BOTÓN */
 
 #boton-flotante{
@@ -196,7 +174,9 @@ h1{
 
   box-shadow:0 0 20px rgba(255,120,160,.6);
 
-  transition:all .3s ease;
+  transition:.3s;
+
+  z-index:5;
 }
 
 #boton-flotante:hover{
@@ -206,6 +186,107 @@ h1{
   box-shadow:0 0 35px rgba(255,120,160,.9);
 }
 
+/* PANEL CARTA */
+
+#panel-carta{
+
+  position:fixed;
+
+  top:50%;
+  left:50%;
+
+  transform:translate(-50%,-50%) scale(.8);
+
+  width:300px;
+
+  background:white;
+
+  border-radius:20px;
+
+  padding:25px;
+
+  text-align:center;
+
+  box-shadow:0 0 40px rgba(0,0,0,.2);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.4s;
+
+  z-index:999;
+}
+
+#panel-carta.active{
+
+  opacity:1;
+
+  transform:translate(-50%,-50%) scale(1);
+
+  pointer-events:auto;
+}
+
+#panel-carta h2{
+
+  color:#c03a6b;
+}
+
+#panel-carta p{
+
+  color:#444;
+
+  line-height:1.5;
+}
+
+/* BOTÓN CERRAR */
+
+#cerrar{
+
+  margin-top:15px;
+
+  border:none;
+
+  background:#ff7aa8;
+
+  color:white;
+
+  padding:10px 18px;
+
+  border-radius:10px;
+
+  cursor:pointer;
+}
+
+/* FUEGOS */
+
+.spark{
+
+  position:fixed;
+
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  pointer-events:none;
+
+  animation:spark 2s linear forwards;
+}
+
+@keyframes spark{
+
+  from{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+
+  to{
+    opacity:0;
+    transform:translateY(-80px) scale(0);
+  }
+}
+
 </style>
 </head>
 
@@ -213,19 +294,15 @@ h1{
 
 <div class="card">
 
-  <h1>Para ti, Amore mio 🖤💖</h1>
+  <h1>Para Ty Amore mio 🖤💖</h1>
 
   <div class="scene">
 
     <img src="arbol_cerezo.png" alt="Arbol de cerezo">
 
-    <!-- FAROLES -->
-
     <div class="glow" style="top:40%;left:20%;"></div>
 
     <div class="glow" style="top:38%;right:20%;"></div>
-
-    <!-- FLORES -->
 
     <div class="flower" style="left:30%;top:80%;"></div>
 
@@ -239,9 +316,23 @@ h1{
 
   <div class="counter" id="contador"></div>
 
-  <!-- BOTÓN -->
+  <button id="boton-flotante">💌</button>
 
-  <button id="boton-flotante"><i> ¡200! </i></button>
+</div>
+
+<!-- PANEL -->
+
+<div id="panel-carta">
+
+  <h2>Para ti 💖</h2>
+
+  <p>
+    Gracias por existir, por quedarte,
+    por cada risa, cada instante y cada
+    día que haces especial. ✨
+  </p>
+
+  <button id="cerrar">Cerrar</button>
 
 </div>
 
@@ -275,34 +366,66 @@ setInterval(actualizar,1000);
 
 actualizar();
 
-/* FUEGOS ARTIFICIALES */
+/* PANEL */
 
-const boton = document.getElementById("boton-flotante");
+const boton =
+document.getElementById("boton-flotante");
 
-boton.addEventListener("click", () => {
+const panel =
+document.getElementById("panel-carta");
 
-  for(let i=0;i<80;i++){
+const cerrar =
+document.getElementById("cerrar");
 
-    const spark = document.createElement("div");
+boton.addEventListener("click", ()=>{
 
-    spark.classList.add("spark");
+  panel.classList.add("active");
 
-    spark.style.left =
+  iniciarFuegos();
+});
+
+cerrar.addEventListener("click", ()=>{
+
+  panel.classList.remove("active");
+});
+
+/* FUEGOS EN BUCLE */
+
+let fireworksStarted = false;
+
+function iniciarFuegos(){
+
+  if(fireworksStarted) return;
+
+  fireworksStarted = true;
+
+  setInterval(()=>{
+
+    for(let i=0;i<25;i++){
+
+      const spark =
+      document.createElement("div");
+
+      spark.classList.add("spark");
+
+      spark.style.left =
       Math.random()*window.innerWidth + "px";
 
-    spark.style.top =
+      spark.style.top =
       Math.random()*window.innerHeight + "px";
 
-    spark.style.background =
+      spark.style.background =
       `hsl(${Math.random()*360},100%,70%)`;
 
-    document.body.appendChild(spark);
+      document.body.appendChild(spark);
 
-    setTimeout(()=>{
-      spark.remove();
-    },2000);
-  }
-});
+      setTimeout(()=>{
+        spark.remove();
+      },2000);
+    }
+
+  },700);
+}
 
 </script>
 
