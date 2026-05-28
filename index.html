@@ -127,11 +127,13 @@ h1{
   }
 }
 
-/* BOTÓN FLOTANTE */
+```css
 #boton-flotante{
-  position:absolute;
+  position:fixed; /* antes estaba absolute */
   bottom:20px;
   right:20px;
+
+  z-index:9999; /* esto lo pone encima de TODO */
 
   width:60px;
   height:60px;
@@ -149,11 +151,8 @@ h1{
 
   transition:all .3s ease;
 }
+```
 
-#boton-flotante:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 30px rgba(255,120,160,.9);
-}
 </style>
 </head>
 
