@@ -1,4 +1,4 @@
-```html
+```html id="a5iqk0"
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -127,13 +127,13 @@ h1{
   }
 }
 
-```css
+/* BOTÓN FLOTANTE */
 #boton-flotante{
-  position:fixed; /* antes estaba absolute */
+  position:fixed;
   bottom:20px;
   right:20px;
 
-  z-index:9999; /* esto lo pone encima de TODO */
+  z-index:9999;
 
   width:60px;
   height:60px;
@@ -151,8 +151,11 @@ h1{
 
   transition:all .3s ease;
 }
-```
 
+#boton-flotante:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 30px rgba(255,120,160,.9);
+}
 </style>
 </head>
 
@@ -185,10 +188,10 @@ h1{
 
   <div class="counter" id="contador"></div>
 
-  <!-- BOTÓN -->
-  <button id="boton-flotante">🎆</button>
-
 </div>
+
+<!-- BOTÓN -->
+<button id="boton-flotante">🎆</button>
 
 <script>
 const inicio = new Date("2025-11-10T01:30:00-05:00");
@@ -221,13 +224,13 @@ boton.addEventListener("click", () => {
 
     spark.classList.add("spark");
 
-    spark.style.left = Math.random()*320 + "px";
-    spark.style.top = Math.random()*550 + "px";
+    spark.style.left = Math.random()*window.innerWidth + "px";
+    spark.style.top = Math.random()*window.innerHeight + "px";
 
     spark.style.background =
       `hsl(${Math.random()*360},100%,70%)`;
 
-    document.querySelector(".card").appendChild(spark);
+    document.body.appendChild(spark);
 
     setTimeout(()=>{
       spark.remove();
