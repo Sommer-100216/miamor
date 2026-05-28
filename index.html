@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -32,14 +33,19 @@ h1{
   font-size:26px;
   margin-top:10px;
 }
+
 .sub{
   margin-top:15px;
   font-size:16px;
 }
+
 .counter{
   margin-top:10px;
   color:#c03a6b;
   font-size:18px;
+  font-variant-numeric: tabular-nums;
+  font-weight:bold;
+  letter-spacing:1px;
 }
 
 /* IMAGEN */
@@ -48,6 +54,7 @@ h1{
   margin:25px auto;
   width:260px;
 }
+
 .scene img{
   width:100%;
 }
@@ -60,13 +67,68 @@ h1{
   transform-origin: top center;
   animation:swing 6s ease-in-out infinite;
 }
+
 @keyframes swing{
   0%{transform:rotate(-2deg);}
   50%{transform:rotate(2deg);}
   100%{transform:rotate(-2deg);}
 }
 
-  boton-flotante{
+/* FLORES */
+.flower{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:#f6a7c1;
+  animation:float 8s linear infinite;
+  opacity:.6;
+}
+
+@keyframes float{
+  from{transform:translateY(0);}
+  to{transform:translateY(-60px);}
+}
+
+/* FAROLES */
+.glow{
+  position:absolute;
+  width:15px;
+  height:15px;
+  border-radius:50%;
+  background:rgba(255,190,120,.8);
+  box-shadow:0 0 10px rgba(255,190,120,.9);
+  animation:glow 4s ease-in-out infinite;
+}
+
+@keyframes glow{
+  0%,100%{opacity:.4;}
+  50%{opacity:1;}
+}
+
+/* CHISPITAS */
+.spark{
+  position:absolute;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:orange;
+  animation:spark 2s linear forwards;
+}
+
+@keyframes spark{
+  from{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+
+  to{
+    opacity:0;
+    transform:translateY(-40px) scale(0);
+  }
+}
+
+/* BOTÓN FLOTANTE */
+#boton-flotante{
   position:absolute;
   bottom:20px;
   right:20px;
@@ -85,55 +147,12 @@ h1{
 
   box-shadow:0 0 20px rgba(255,120,160,.6);
 
-  transition:.3s;
+  transition:all .3s ease;
 }
 
 #boton-flotante:hover{
   transform:scale(1.1);
   box-shadow:0 0 30px rgba(255,120,160,.9);
-}
-  
-  
-/* FLORES */
-.flower{
-  position:absolute;
-  width:8px;
-  height:8px;
-  background:#f6a7c1;
-  animation:float 8s linear infinite;
-  opacity:.6;
-}
-@keyframes float{
-  from{transform:translateY(0);}
-  to{transform:translateY(-60px);}
-}
-
-/* FAROLES */
-.glow{
-  position:absolute;
-  width:15px;
-  height:15px;
-  border-radius:50%;
-  background:rgba(255,190,120,.8);
-  box-shadow:0 0 10px rgba(255,190,120,.9);
-  animation:glow 4s ease-in-out infinite;
-}
-@keyframes glow{
-  0%,100%{opacity:.4;}
-  50%{opacity:1;}
-}
-
-/* CHISPITAS */
-.spark{
-  position:absolute;
-  width:3px;
-  height:3px;
-  background:orange;
-  animation:spark 2s infinite;
-}
-@keyframes spark{
-  from{opacity:1; transform:translateY(0);}
-  to{opacity:0; transform:translateY(-20px);}
 }
 </style>
 </head>
@@ -164,8 +183,11 @@ h1{
   </div>
 
   <div class="sub">Mi amor por ti comenzó hace…</div>
+
   <div class="counter" id="contador"></div>
-  
+
+  <!-- BOTÓN -->
+  <button id="boton-flotante">🎆</button>
 
 </div>
 
@@ -173,6 +195,7 @@ h1{
 const inicio = new Date("2025-11-10T01:30:00-05:00");
 
 function actualizar(){
+
   const ahora = new Date();
   let diff = ahora - inicio;
 
@@ -184,9 +207,36 @@ function actualizar(){
   document.getElementById("contador").innerHTML =
     `${d} días ${h} horas ${m} minutos ${s} segundos`;
 }
+
 setInterval(actualizar,1000);
 actualizar();
+
+/* BOTÓN FUEGOS */
+const boton = document.getElementById("boton-flotante");
+
+boton.addEventListener("click", () => {
+
+  for(let i=0;i<50;i++){
+
+    const spark = document.createElement("div");
+
+    spark.classList.add("spark");
+
+    spark.style.left = Math.random()*320 + "px";
+    spark.style.top = Math.random()*550 + "px";
+
+    spark.style.background =
+      `hsl(${Math.random()*360},100%,70%)`;
+
+    document.querySelector(".card").appendChild(spark);
+
+    setTimeout(()=>{
+      spark.remove();
+    },2000);
+  }
+});
 </script>
 
 </body>
 </html>
+```
