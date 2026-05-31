@@ -145,6 +145,62 @@ h1{
   }
 }
 
+/* PANEL CARTA */
+
+#panel-carta{
+
+  position:fixed;
+
+  top:50%;
+  left:50%;
+
+  transform:translate(-50%,-50%) scale(.8);
+
+  width:300px;
+
+  background:white;
+
+  border-radius:20px;
+
+  padding:25px;
+
+  text-align:center;
+
+  box-shadow:0 0 40px rgba(0,0,0,.2);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.4s;
+
+  z-index:999;
+}
+
+#panel-carta.active{
+
+  opacity:1;
+
+  transform:translate(-50%,-50%) scale(1);
+
+  pointer-events:auto;
+}
+
+#panel-carta h2{
+
+  color:#c03a6b;
+}
+
+#panel-carta p{
+
+  color:#444;
+
+  line-height:1.5;
+
+  white-space:pre-line;
+}
+
+  
 /* BOTÓN */
 
 #boton-flotante{
