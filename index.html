@@ -346,13 +346,17 @@ actualizar();
 const boton =
 document.getElementById("boton-flotante");
 
-const panel =
-document.getElementById("panel-carta");
-
 const cerrar =
 document.getElementById("cerrar");
 
+const musica =
+document.getElementById("musica");
+
 boton.addEventListener("click", ()=>{
+
+  if(musica.paused){
+    musica.play();
+  }
 
   panel.classList.add("active");
 
