@@ -409,9 +409,9 @@ document.getElementById("musica");
 
 boton.addEventListener("click", ()=>{
 
-  if(musica.paused){
-    musica.play();
-  }
+  musica.play()
+    .then(() => console.log("Música iniciada"))
+    .catch(err => console.error(err));
 
   panel.classList.add("active");
 
